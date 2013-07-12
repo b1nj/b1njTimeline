@@ -1,0 +1,12 @@
+body {
+    font-size: 1em;
+    background: #fdfdfd;
+    color: #585858;
+}
+#page {
+    margin: 0 auto;
+    width: 960px;
+}
+a {
+    color: #585858;
+}
