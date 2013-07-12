@@ -1,9 +1,9 @@
-B1nj Polaroid Gallery
+B1nj Timeline
 ========================
 
 **[Demo]**
 
-B1nj Polaroid Gallery is a very simple jQuery plugin.
+B1nj Timeline is a very simple jQuery plugin. The event is automatically placed on the timeline.
 
 ## Getting Started
 
@@ -18,19 +18,21 @@ Include Css, html and script jQuery, moment, plugin on a page. This is all.
 **HTML**
 
 ```html
-<div id="timeline" class="timeline">
-    <ol class="evenement">
-        <li>
-            <time datetime="1991-10-01">July 1995</time>
-            <p>Naissance</p>
-        </li>
-        <li>
-            <time datetime="1994-10">Septembre 1999</time>
-            <p>Rentrée des classes !</p>
-        </li>
-    </ol>
-</div>
+<ol id="timeline">
+    <li>
+        <time datetime="1991-10-01">July 1995</time>
+        <p>Naissance</p>
+        <div class="description">
+            <p>Description...</p>
+        </div>
+    </li>
+    <li>
+        <time datetime="1994-10">Septembre 1999</time>
+        <p>Rentrée des classes !</p>
+    </li>
+</ol>
 ```
+Format date is YYYY-MM-DD. Date before Jesus Christ d'ont work.
 
 **jQuery**
 
@@ -46,12 +48,10 @@ Include Css, html and script jQuery, moment, plugin on a page. This is all.
     });
 </script>
 ```
+You must adjust manually the height of timeline width the param height.
 
-It's easy to add a nice zoom, with for example the plugin fancyBox.
-
-
-[Inspire by HTML/CSS timeline @csswizardry]
+Design by and css inspired [@csswizardry HTML/CSS timeline]
 
 [Demo]: http://www.b1nj.fr/tests/b1njTimeline/
-[Inspire by HTML/CSS timeline @csswizardry]: http://csswizardry.com/2011/03/coding-up-a-semantic-lean-timeline/
+[@csswizardry HTML/CSS timeline]: http://csswizardry.com/2011/03/coding-up-a-semantic-lean-timeline/
 

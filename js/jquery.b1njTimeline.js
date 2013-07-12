@@ -14,7 +14,7 @@
     // Pugin constructor
     function Plugin( element, options ) {
         this.element = element;
-        this.$element = $(this.element);
+        this.$element = null;
         this.options = $.extend( {}, defaults, options) ;
         this._dateDebut = false;
         this._dateFin = false;
@@ -26,18 +26,20 @@
     Plugin.prototype.init = function () {
         var self = this;
 
-        this.$element.
-        css('height', this.options.height);
+        $(this.element).addClass('events').wrap('<div class="b1njTimeline" />');
 
-        // Recherche date la plus ancienne et la plus r�cente
+        this.$element = $(this.element).parent();
+        this.$element.css('height', this.options.height);
+
+        // Recherche date la plus ancienne et la plus récente
         this._dateDebut = new moment(this.$element.find('li:first time').attr('datetime'), 'YYYY-MM-DD');
         this._dateFin = new moment(this.$element.find('li:last time').attr('datetime'), 'YYYY-MM-DD');
         this._duree = this._dateFin.diff(this._dateDebut);
 
-        // Placement de l'�venement
+        // Placement de l'évenement
         this.$element.find('li').each(function () {
             $li = $(this);
-            $li.wrapInner('<div class="evenement2" />');
+            $li.wrapInner('<div class="event" />');
             var date = new moment($li.find('time').attr('datetime'), 'YYYY-MM-DD')
             $li.css('top', self._getTop(date));
 
@@ -46,7 +48,7 @@
             });
         });
 
-        // Mise en place des dates gradu�es
+        // Mise en place des dates graduées
         var date = this._dateDebut.year();
         var num_years = this._dateFin.diff(this._dateDebut, 'years');
 
@@ -88,11 +90,11 @@
     };
 
     Plugin.prototype.open = function (desc) {
-        var $evenement2 = $(desc).find('.evenement2');
+        var $evenement2 = $(desc).find('.event');
         if ($evenement2.hasClass('open')) {
             $evenement2.removeClass('open');
         } else {
-            this.$element.find('.evenement2').removeClass('open');
+            this.$element.find('.event').removeClass('open');
             $evenement2.addClass('open');
         }
 
