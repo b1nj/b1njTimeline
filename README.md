@@ -5,6 +5,8 @@ B1nj Timeline
 
 B1nj Timeline is a very simple jQuery plugin. The event is automatically placed on the timeline.
 
+![Timeline](http://www.b1nj.fr/blog/public/b1nj-timeline.jpg)
+
 ## Getting Started
 
 Include Css, html and script jQuery, moment, plugin on a page. This is all.

@@ -1,0 +1,38 @@
+{
+  "name": "b1njTimeline",
+  "title": "Simple Timeline html/css/javascript",
+  "description": "B1nj Timeline is a semantic and nice looking lean timeline. The event is automatically placed on the timeline.",
+  "keywords": [
+    "timeline",
+    "time",
+    "event",
+    "date",
+    "ui"
+  ],
+  "version": "1.0.0",
+  "author": {
+    "name": "B1nj",
+    "url": "http://www.b1nj.fr"
+  },
+  "maintainers": [
+    {
+      "name": "csswizardry",
+      "url": "http://csswizardry.com/2011/03/coding-up-a-semantic-lean-timeline/"
+    }
+  ],  
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "bugs": "https://github.com/b1nj/b1njTimeline/issues",
+  "homepage": "http://www.b1nj.fr/blog/index.php?post/2013/07/18/B1nj-Timeline-%3A-une-ligne-de-temps-en-jQuery/html",
+  "docs": "https://github.com/b1nj/b1njTimeline",
+  "demo": "http://www.b1nj.fr/tests/b1njTimeline/",
+  "download": "https://github.com/b1nj/b1njTimeline/archive/master.zip",
+  "dependencies": {
+    "jquery": ">=1.8",
+    "moment": ">=2.1.0"
+  }
+}
