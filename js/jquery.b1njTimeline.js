@@ -37,7 +37,7 @@
         this._duree = this._dateFin.diff(this._dateDebut);
 
         // Placement de l'évenement
-        this.$element.find('li').each(function () {
+        this.$element.find('ol > li').each(function () {
             $li = $(this);
             $li.wrapInner('<div class="event" />');
             var date = new moment($li.find('time').attr('datetime'), 'YYYY-MM-DD')
