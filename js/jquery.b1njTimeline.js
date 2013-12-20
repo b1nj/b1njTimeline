@@ -16,9 +16,9 @@
         this.element = element;
         this.$element = null;
         this.options = $.extend( {}, defaults, options) ;
-        this._dateDebut = false;
-        this._dateFin = false;
-        this._duree = false;
+        this._dateStart = false;
+        this._dateEnd = false;
+        this._duration = false;
         this._name = pluginName;
         this.init();
     }
@@ -26,76 +26,84 @@
     Plugin.prototype.init = function () {
         var self = this;
 
-        $(this.element).addClass('events').wrap('<div class="b1njTimeline" />');
+        $(this.element).addClass(this._name + 'Events').wrap('<div class="' + pluginName + '" />');
 
         this.$element = $(this.element).parent();
         this.$element.css('height', this.options.height);
 
-        // Recherche date la plus ancienne et la plus récente
-        this._dateDebut = new moment(this.$element.find('li:first time').attr('datetime'), 'YYYY-MM-DD');
-        this._dateFin = new moment(this.$element.find('li:last time').attr('datetime'), 'YYYY-MM-DD');
-        this._duree = this._dateFin.diff(this._dateDebut);
-
-        // Placement de l'évenement
-        this.$element.find('.events > li').each(function () {
+        // Find the old date, the newest date, and the time elapsed in between
+        this._dateStart = new moment(this.$element.find('li:first time').attr('datetime'), 'YYYY-MM-DD');
+        this._dateEnd = new moment(this.$element.find('li:last time').attr('datetime'), 'YYYY-MM-DD');
+        this._duration = this._dateEnd.diff(this._dateStart);
+        
+        this.drawTimeline();
+    };
+    
+    Plugin.prototype.drawTimeline = function() {
+        var self = this;
+        
+        // Convert each <li> into an event
+        this.$element.find('.' + this._name + 'Events > li').each(function () {
             $li = $(this);
-            $li.wrapInner('<div class="event" />');
-            var date = new moment($li.find('time').attr('datetime'), 'YYYY-MM-DD')
-            $li.css('top', self._getTop(date));
-
-            $li.on('click', function (e) {
+            
+            var date = new moment($li.find('time').attr('datetime'), 'YYYY-MM-DD');
+            
+            $li.
+            addClass(self._name + 'Event').
+            wrapInner('<div class="' + self._name + 'EventContents" />').
+            css('top', self._getTop(date)).
+            on('click', function (e) {
                 self.open(this);
             });
         });
 
-        // Mise en place des dates graduées
-        var date = this._dateDebut.year();
-        var num_years = this._dateFin.diff(this._dateDebut, 'years');
+        // Create the timeline bar
+        var date = this._dateStart.year();
+        var num_years = this._dateEnd.diff(this._dateStart, 'years');
 
-        var tranche = 1;
+        var tickDuration = 1;
         if (num_years > 500) {
-            tranche = 100;
+            tickDuration = 100;
         } else if (num_years > 250) {
-            tranche = 50;
+            tickDuration = 50;
         } else if (num_years > 100) {
-            tranche = 25;
+            tickDuration = 25;
         } else if (num_years > 50) {
-            tranche = 10;
+            tickDuration = 10;
         } else if (num_years > 25) {
-            tranche = 5;
+            tickDuration = 5;
         } else if (num_years > 10) {
-            tranche = 2;
+            tickDuration = 2;
         }
         date = date + 1;
-        while (date % tranche != 0) {
+        while (date % tickDuration != 0) {
             date = date + 1;
         }
 
-        var html_dates = '<ol class="timeline_dates">';
-        for (var i = date; i <= this._dateFin.year(); i = i + tranche) {
+        var html_dates = '<ol class="' + this._name + 'Dates">';
+        for (var i = date; i <= this._dateEnd.year(); i = i + tickDuration) {
             var top = self._getTop(new moment(i.toString(), 'YYYY'));
             html_dates += '<li style="top: ' + top + 'px"><div>' + i + '</div></li>';
         }
         html_dates += '<ol>';
 
         this.$element.find('ol').after(html_dates);
-
-    };
+    };   
 
     Plugin.prototype._getTop = function (date) {
-        var top = date.diff(this._dateDebut) * this.options.height / this._duree;
+        var top = date.diff(this._dateStart) * this.options.height / this._duration;
         top = Math.abs(parseInt(top));
         top = top + this.options.margeTop;
         return top;
     };
 
     Plugin.prototype.open = function (desc) {
-        var $evenement2 = $(desc).find('.event');
-        if ($evenement2.hasClass('open')) {
-            $evenement2.removeClass('open');
+        var $event2 = $(desc).find('.' + this._name + 'EventContents');
+        if ($event2.hasClass('open')) {
+            $event2.removeClass('open');
         } else {
-            this.$element.find('.event').removeClass('open');
-            $evenement2.addClass('open');
+            this.$element.find('.' + this._name + 'EventContents').removeClass('open');
+            $event2.addClass('open');
         }
 
     };
