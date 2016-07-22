@@ -1,5 +1,6 @@
 /* CSS Inspired by @csswizardry http://csswizardry.com/2011/03/coding-up-a-semantic-lean-timeline/ */
 .b1njTimeline {
+    box-sizing: content-box;
     background : url(f43059.gif) top center repeat-y;
     width : 800px;
     padding : 50px 0;
